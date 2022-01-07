@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import {useState} from "react";
+import Quotecard from "./components/Quotecard";
 
 function App() {
+  const [quote,setQuote]= useState('');
+  const getQuote= () => {
+    axios.get('https://simpsons-quotes-api.herokuapp.com/quotes')
+        .then((reponse) => reponse.data)
+        .then((data)=> {console.log('dans le then : ',data[0]);setQuote(data[0])})
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {console.log('dans le RENDU', quote.quote)}
+        <button type="button" onClick={getQuote}>Get a Quote</button>
+        <Quotecard quote={quote.quote} character={quote.character} image={quote.image} />
     </div>
   );
 }
