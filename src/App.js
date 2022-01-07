@@ -8,11 +8,11 @@ function App() {
   const getQuote= () => {
     axios.get('https://simpsons-quotes-api.herokuapp.com/quotes')
         .then((reponse) => reponse.data)
-        .then((data)=> {console.log('dans le then : ',data[0]);setQuote(data[0])})
+        .then((data)=> setQuote(data[0]))
   }
   return (
     <div className="App">
-        {console.log('dans le RENDU', quote.quote)}
+
         <button type="button" onClick={getQuote}>Get a Quote</button>
         <Quotecard quote={quote.quote} character={quote.character} image={quote.image} />
     </div>
